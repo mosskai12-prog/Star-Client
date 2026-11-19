@@ -51,6 +51,7 @@ public final class StarClient implements ClientModInitializer {
                 });
             }
             ModuleManager.tick();
+            ModuleManager.render();
         });
     }
 }
