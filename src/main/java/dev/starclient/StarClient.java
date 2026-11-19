@@ -2,7 +2,6 @@ package dev.starclient;
 
 import dev.starclient.module.ModuleManager;
 import dev.starclient.module.modules.StorageEspModule;
-import dev.starclient.render.StorageEspRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -15,7 +14,6 @@ public final class StarClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModuleManager.register(new StorageEspModule());
-        StorageEspRenderer.initialize();
 
         KeyBinding toggleEsp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.starclient.toggle_storage_esp",
