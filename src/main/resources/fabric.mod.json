@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "starclient",
+  "version": "${version}",
+  "name": "Star Client",
+  "description": "An independent client-side utility mod for Minecraft.",
+  "authors": ["mosskai12-prog"],
+  "environment": "client",
+  "entrypoints": { "client": ["dev.starclient.StarClient"] },
+  "depends": {
+    "fabricloader": ">=0.18.2",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
