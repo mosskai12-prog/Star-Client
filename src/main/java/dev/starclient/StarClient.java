@@ -1,5 +1,6 @@
 package dev.starclient;
 
+import dev.starclient.gui.StarClickScreen;
 import dev.starclient.module.ModuleManager;
 import dev.starclient.module.modules.StorageEspModule;
 import net.fabricmc.api.ClientModInitializer;
@@ -15,6 +16,13 @@ public final class StarClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModuleManager.register(new StorageEspModule());
 
+        KeyBinding openGui = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.starclient.open_gui",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_RIGHT_SHIFT,
+            KeyBinding.Category.MISC
+        ));
+
         KeyBinding toggleEsp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.starclient.toggle_storage_esp",
             InputUtil.Type.KEYSYM,
@@ -23,6 +31,11 @@ public final class StarClient implements ClientModInitializer {
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (openGui.wasPressed()) {
+                if (client.currentScreen == null) client.setScreen(new StarClickScreen());
+                else if (client.currentScreen instanceof StarClickScreen) client.setScreen(null);
+            }
+
             while (toggleEsp.wasPressed()) {
                 ModuleManager.get(StorageEspModule.class).ifPresent(module -> {
                     module.toggle();
