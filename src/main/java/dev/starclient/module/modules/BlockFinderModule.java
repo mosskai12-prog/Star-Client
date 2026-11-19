@@ -50,7 +50,7 @@ public abstract class BlockFinderModule extends Module {
     @Override
     public final void onRender() {
         for (Target target : targets) {
-            GizmoDrawing.box(target.pos(), DrawStyle.stroked(target.argb(), 2.0f)).setAlwaysOnTop();
+            GizmoDrawing.box(target.pos(), DrawStyle.stroked(target.argb(), 2.0f)).ignoreOcclusion();
         }
     }
 
