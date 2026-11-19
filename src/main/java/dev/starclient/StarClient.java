@@ -2,6 +2,9 @@ package dev.starclient;
 
 import dev.starclient.gui.StarClickScreen;
 import dev.starclient.module.ModuleManager;
+import dev.starclient.module.modules.CropEspModule;
+import dev.starclient.module.modules.EnderChestEspModule;
+import dev.starclient.module.modules.SpawnerEspModule;
 import dev.starclient.module.modules.StorageEspModule;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -15,6 +18,9 @@ public final class StarClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModuleManager.register(new StorageEspModule());
+        ModuleManager.register(new SpawnerEspModule());
+        ModuleManager.register(new CropEspModule());
+        ModuleManager.register(new EnderChestEspModule());
 
         KeyBinding openGui = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.starclient.open_gui",
