@@ -16,4 +16,7 @@ public final class ModuleManager {
     public static void tick() {
         for (Module module : MODULES) if (module.isEnabled()) module.onTick();
     }
+    public static void render() {
+        for (Module module : MODULES) if (module.isEnabled()) module.onRender();
+    }
 }
