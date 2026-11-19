@@ -2,8 +2,10 @@ package dev.starclient.module.modules;
 
 import dev.starclient.module.Module;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.DrawStyle;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.block.BlockState;
+import net.minecraft.world.debug.gizmo.GizmoDrawing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,23 +37,25 @@ public abstract class BlockFinderModule extends Module {
         BlockPos origin = client.player.getBlockPos();
         List<Target> found = new ArrayList<>();
         int checked = 0;
-
-        // Search nearest blocks first and cap the work per scan.
         for (BlockPos pos : BlockPos.iterateOutwards(origin, range, range, range)) {
             if (checked++ >= 32768) break;
             if (matches(client.world.getBlockState(pos))) {
                 found.add(new Target(pos.toImmutable(), color));
             }
         }
-
         targets.clear();
         targets.addAll(found);
     }
 
     @Override
-    public void onDisable() {
-        targets.clear();
+    public final void onRender() {
+        for (Target target : targets) {
+            GizmoDrawing.box(target.pos(), DrawStyle.stroked(target.argb(), 2.0f)).setAlwaysOnTop();
+        }
     }
+
+    @Override
+    public void onDisable() { targets.clear(); }
 
     public final List<Target> targets() { return List.copyOf(targets); }
     public final int range() { return range; }
