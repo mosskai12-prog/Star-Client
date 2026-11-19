@@ -5,8 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.debug.gizmo.Gizmos;
-import net.minecraft.world.debug.gizmo.GizmoStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +33,6 @@ public final class StorageEspModule extends Module {
         }
         targets.clear();
         targets.addAll(found);
-
-        // Minecraft 1.21.11 uses the Gizmos API for debug-style world overlays.
-        for (StorageTarget target : targets) {
-            Gizmos.cuboid(target.pos(), GizmoStyle.stroke(target.argb(), 2.0f)).setAlwaysOnTop();
-        }
     }
 
     private int colorFor(Block block) {
