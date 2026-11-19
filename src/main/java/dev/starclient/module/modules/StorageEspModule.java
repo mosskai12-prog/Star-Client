@@ -43,7 +43,7 @@ public final class StorageEspModule extends Module {
     @Override
     public void onRender() {
         for (StorageTarget target : targets) {
-            GizmoDrawing.box(target.pos(), DrawStyle.stroked(target.argb(), 2.0f)).setAlwaysOnTop();
+            GizmoDrawing.box(target.pos(), DrawStyle.stroked(target.argb(), 2.0f)).ignoreOcclusion();
         }
     }
 
