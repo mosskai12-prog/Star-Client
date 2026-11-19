@@ -3,6 +3,7 @@ package dev.starclient.gui;
 import dev.starclient.module.Module;
 import dev.starclient.module.ModuleManager;
 import dev.starclient.module.modules.StorageEspModule;
+import dev.starclient.module.modules.BlockFinderModule;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -140,6 +141,17 @@ public final class StarClickScreen extends Screen {
                 settingY = drawSettingToggle(context, settingsLeft, settingY, settingsWidth, "Trapped chests", storage.trappedChests());
                 settingY = drawSettingToggle(context, settingsLeft, settingY, settingsWidth, "Barrels", storage.barrels());
                 drawSettingToggle(context, settingsLeft, settingY, settingsWidth, "Shulker boxes", storage.shulkers());
+            } else if (selectedModule instanceof BlockFinderModule finder) {
+                context.drawTextWithShadow(textRenderer, "RANGE", settingsLeft + 14, settingY, MUTED);
+                context.drawTextWithShadow(textRenderer, finder.range() + " blocks",
+                    settingsLeft + 14, settingY + 20, 0xFFFFFFFF);
+                drawButton(context, settingsLeft + settingsWidth - 78, settingY + 13, 26, 22, "−");
+                drawButton(context, settingsLeft + settingsWidth - 42, settingY + 13, 26, 22, "+");
+                context.drawTextWithShadow(textRenderer, "Found: " + finder.targets().size(),
+                    settingsLeft + 14, settingY + 54, 0xFF9FC8FF);
+                context.drawWrappedTextWithShadow(textRenderer,
+                    Text.literal("Scans nearby loaded blocks. Outlines are drawn through terrain."),
+                    settingsLeft + 14, settingY + 76, Math.max(100, settingsWidth - 28), MUTED);
             } else {
                 context.drawTextWithShadow(textRenderer, "No extra settings yet.",
                     settingsLeft + 14, settingY, MUTED);
@@ -221,6 +233,18 @@ public final class StarClickScreen extends Screen {
                 return true;
             }
             shown++;
+        }
+
+        if (selectedModule instanceof BlockFinderModule finder && button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+            int settingY = top + 197;
+            if (inside(mx, my, settingsLeft + settingsWidth - 78, settingY + 13, 26, 22)) {
+                finder.setRange(finder.range() - 4);
+                return true;
+            }
+            if (inside(mx, my, settingsLeft + settingsWidth - 42, settingY + 13, 26, 22)) {
+                finder.setRange(finder.range() + 4);
+                return true;
+            }
         }
 
         if (selectedModule instanceof StorageEspModule storage && button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
