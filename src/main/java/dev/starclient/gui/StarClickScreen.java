@@ -189,7 +189,7 @@ public final class StarClickScreen extends Screen {
         int y = panelTop + 79;
         int w = ui.mainWidth() - 20;
         context.fill(x, y, x + w, y + 32, searchFocused ? 0xFF1B3049 : 0xFF15243A);
-        context.drawBorder(x, y, w, 32, searchFocused ? ACCENT : 0xFF293D58);
+        context.drawStrokedRectangle(x, y, w, 32, searchFocused ? ACCENT : 0xFF293D58);
         context.drawTextWithShadow(textRenderer, "SEARCH", x + 10, y + 11, ACCENT_BRIGHT);
         String shown = search.isEmpty() ? "Type a module name..." : trim(search, Math.max(30, w - 94));
         int textX = x + 62;
@@ -209,7 +209,7 @@ public final class StarClickScreen extends Screen {
         boolean selected = module == selectedModule;
         int fill = selected ? CARD_SELECTED : (hovered ? CARD_HOVER : CARD);
         context.fill(x, y, x + w, y + 53, fill);
-        context.drawBorder(x, y, w, 53, selected ? 0xFF397FC4 : 0xFF20364F);
+        context.drawStrokedRectangle(x, y, w, 53, selected ? 0xFF397FC4 : 0xFF20364F);
         if (selected) context.fill(x, y + 8, x + 3, y + 45, ACCENT);
 
         int iconX = x + 11;
@@ -308,7 +308,7 @@ public final class StarClickScreen extends Screen {
 
     private void drawSmallButton(DrawContext context, int x, int y, String label) {
         context.fill(x, y, x + 27, y + 23, 0xFF213B59);
-        context.drawBorder(x, y, 27, 23, 0xFF345577);
+        context.drawStrokedRectangle(x, y, 27, 23, 0xFF345577);
         context.drawCenteredTextWithShadow(textRenderer, label, x + 13, y + 7, TEXT);
     }
 
